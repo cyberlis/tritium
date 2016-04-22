@@ -195,6 +195,13 @@ class Tab(object):
                 background_pixel = self.frame.screen.title_on_bg,
                 event_mask = X.ExposureMask
                 )
+            self._window = window
+            
+            gc = window.create_gc(
+                foreground = 0,
+                background = 1,
+            )
+            window.draw_text( gc, 0, 0, "xxxx")
 
             self.window = self.frame.screen.add_internal_window(window)
             window.change_attributes( border_pixel = self.frame.screen.title_border_color)
@@ -367,23 +374,26 @@ class Tab(object):
         if not self.text:
             return
 
-            if self.active:
-                fg_gc = self.on_fg_gc
-                bg_gc = self.on_bg_gc
-            else:
-                fg_gc = self.off_fg_gc
-                bg_gc = self.off_bg_gc
-                
-            self.window.fill_rectangle( bg_gc, 0, 0, self.width, self.frame.screen.title_height )
+        if self.active:
+            fg_gc = self.on_fg_gc
+            bg_gc = self.on_bg_gc
+        else:
+            fg_gc = self.off_fg_gc
+            bg_gc = self.off_bg_gc
             
-            # Get width
-            f = fg_gc.query_text_extents(self.text)
-            width = f.overall_width + 4
+        #self.window.fill_rectangle( bg_gc, 0, 0, self.width, self.frame.screen.title_height )
+            
+        # Get width
+        """f = fg_gc.query_text_extents(self.text)
+        width = f.overall_width + 4
 
-            width = min( width, self.width - 4 )
-            x = ( self.width - width ) / 2
-
-            self.window.draw_text( fg_gc, x, self.frame.screen.title_base, self.text )
+        width = min( width, self.width - 4 )
+        x = ( self.width - width ) / 2"""
+        """gc = self._window.create_gc(
+            foreground = 0,
+            background = 1,
+            )
+        self.window.draw_text( gc, 20, 20, self.text )"""
 
     def tab_redraw(self, event):
         """
