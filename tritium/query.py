@@ -96,7 +96,7 @@ class runPython( query ):
 
     def query( self, frame ):
         query.query( self, frame )
-	self.wm = frame.wm
+        self.wm = frame.wm
         
 
     def __call__( self, string):

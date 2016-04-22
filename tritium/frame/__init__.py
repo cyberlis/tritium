@@ -46,13 +46,13 @@ class FrameClient( object ):
     default_gravity = X.SouthGravity
 
     def __init__(self, screen, window, maprequest):
-	try:
-	    transient = window.get_wm_transient_for()
+        try:
+            transient = window.get_wm_transient_for()
             if transient:
                 self.transient = True
-	except:
+        except:
             traceback.print_exc()
-	    pass
+            pass
 
         self.gravity = self.default_gravity
 

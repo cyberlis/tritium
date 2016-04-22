@@ -28,26 +28,26 @@ log = logging.getLogger()
 
 class SubMap(keys.KeyGrabKeyboard):
     def _keyevent(self, event):
-	# Store key press time (approximate to the current time
-	# as the X event.time isn't synced with that)
-	self.last_key_time = time.time()
+        # Store key press time (approximate to the current time
+        # as the X event.time isn't synced with that)
+        self.last_key_time = time.time()
 
         log.debug('keys: %s %d %d, keyhandler %s' % (event.__class__.__name__, event.detail, event.state, self))
 
-	if event.type != X.KeyPress:
-            return
-	
-	# First check for an exact modifier match
-	match = keys.hash_keycode(event.detail, event.state)
-	if self.bindings.has_key(match):
-	    self.bindings[match](event)
+        if event.type != X.KeyPress:
+                return
 
-	# else, check for an AnyModifier key
-	else:
-	    match = keys.hash_keycode(event.detail, X.AnyModifier)
-	    if self.bindings.has_key(match):
-		self.bindings[match](event)
+        # First check for an exact modifier match
+        match = keys.hash_keycode(event.detail, event.state)
+        if self.bindings.has_key(match):
+            self.bindings[match](event)
 
-        self._cleanup()
+        # else, check for an AnyModifier key
+        else:
+            match = keys.hash_keycode(event.detail, X.AnyModifier)
+            if self.bindings.has_key(match):
+                self.bindings[match](event)
+
+            self._cleanup()
 
 

@@ -125,7 +125,7 @@ class TabClient(object):
     def tab_manage( self ):
         log.debug( "tab_manage: %s" % self )
         self.tab_managed = True
-	self.dispatch.add_handler(X.PropertyNotify, self.tab_property_notify)
+        self.dispatch.add_handler(X.PropertyNotify, self.tab_property_notify)
         self.dispatch.add_handler(wmevents.ClientFocusIn, self.tab_get_focus)
         self.dispatch.add_handler(wmevents.ClientFocusOut, self.tab_lose_focus)
         self.dispatch.add_handler(wmevents.RemoveClient, self.tab_remove)
@@ -136,14 +136,14 @@ class TabClient(object):
     def tab_unmanage( self ):
         log.debug( "tab_unmanage" )
         self.tab_managed = False
-	self.dispatch.remove_handler( self.tab_property_notify)
+        self.dispatch.remove_handler( self.tab_property_notify)
         self.dispatch.remove_handler( self.tab_get_focus)
         self.dispatch.remove_handler( self.tab_lose_focus)
         self.dispatch.remove_handler( self.tab_remove)
 
 
     def tab_property_notify(self, event):
-	if self.current and event.atom == Xatom.WM_NAME:
+        if self.current and event.atom == Xatom.WM_NAME:
             try:
                 self.tab.set_text( self.get_title())
             except:
@@ -197,7 +197,7 @@ class Tab(object):
                 )
 
             self.window = self.frame.screen.add_internal_window(window)
-	    window.change_attributes( border_pixel = self.frame.screen.title_border_color)
+            window.change_attributes( border_pixel = self.frame.screen.title_border_color)
             self.window.configure(border_width = 1)
 
             self.window.dispatch.add_handler( X.Expose, self.tab_redraw )
@@ -250,10 +250,10 @@ class Tab(object):
         pre:
             not self._deleted
         """
-	(x, y, width, height, borderwidth) = self.window.geometry()
-	self.client.raisewindow()
+        (x, y, width, height, borderwidth) = self.window.geometry()
+        self.client.raisewindow()
         self.client.workspace.raisewindows() # raise the "alwaysontop" windows
-	self.window.raisewindow()
+        self.window.raisewindow()
         self.frame.wm.set_current_client( self.client )
 
     def tab_mouse_down( self, event ):
@@ -263,6 +263,8 @@ class Tab(object):
         """
         if( event.detail == 1 ):
             self.tab_dragging = True
+            
+            
             self.window.dispatch.add_handler( X.ButtonRelease, self.tab_mouse_up ) 
             self.window.dispatch.add_handler( X.MotionNotify, self.tab_drag )        
             event.window.grab_pointer( False,
@@ -350,10 +352,10 @@ class Tab(object):
         pre:
             not self._deleted
         """
-	if text == self.text:
-	    return
+        if text == self.text:
+            return
 
-	self.text = text
+        self.text = text
         self.tab_undraw()
         self.tab_draw()
 
@@ -362,26 +364,26 @@ class Tab(object):
         pre:
             not self._deleted
         """
-	if not self.text:
-	    return
+        if not self.text:
+            return
 
-        if self.active:
-            fg_gc = self.on_fg_gc
-            bg_gc = self.on_bg_gc
-        else:
-            fg_gc = self.off_fg_gc
-            bg_gc = self.off_bg_gc
+            if self.active:
+                fg_gc = self.on_fg_gc
+                bg_gc = self.on_bg_gc
+            else:
+                fg_gc = self.off_fg_gc
+                bg_gc = self.off_bg_gc
+                
+            self.window.fill_rectangle( bg_gc, 0, 0, self.width, self.frame.screen.title_height )
             
-        self.window.fill_rectangle( bg_gc, 0, 0, self.width, self.frame.screen.title_height )
-        
-        # Get width
-        f = fg_gc.query_text_extents(self.text)
-        width = f.overall_width + 4
+            # Get width
+            f = fg_gc.query_text_extents(self.text)
+            width = f.overall_width + 4
 
-        width = min( width, self.width - 4 )
-        x = ( self.width - width ) / 2
+            width = min( width, self.width - 4 )
+            x = ( self.width - width ) / 2
 
-	self.window.draw_text( fg_gc, x, self.frame.screen.title_base, self.text )
+            self.window.draw_text( fg_gc, x, self.frame.screen.title_base, self.text )
 
     def tab_redraw(self, event):
         """

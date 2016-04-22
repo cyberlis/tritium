@@ -59,10 +59,10 @@ class TitleScreen(object):
                                              '.Tabs.Font',
                                              'fixed' )
 
-	fq = self.title_font.query()
-	font_center = (fq.font_ascent + fq.font_descent) / 2 - fq.font_descent
-	self.title_height = fq.font_ascent + fq.font_descent + 6
-	self.title_base = self.title_height / 2 + font_center
+        fq = self.title_font.query()
+        font_center = (fq.font_ascent + fq.font_descent) / 2 - fq.font_descent
+        self.title_height = fq.font_ascent + fq.font_descent + 6
+        self.title_base = self.title_height / 2 + font_center
 
 # Client mixin
 class TitleClient(object):
@@ -130,7 +130,7 @@ class TitleClient(object):
         self.title_window.dispatch.add_handler( X.MotionNotify, self.titlebar_drag )
         self.title_window.dispatch.add_handler( X.ButtonRelease, self.titlebar_mouse_up )
 
-	self.dispatch.add_handler( X.PropertyNotify, self.title_property_notify )
+        self.dispatch.add_handler( X.PropertyNotify, self.title_property_notify )
 
         self.title_window.dispatch.add_handler( X.Expose, self.title_redraw )
         self.decoration_window.dispatch.add_handler( wmevents.ClientFocusIn, self.title_get_focus )
@@ -168,7 +168,7 @@ class TitleClient(object):
         self.dispatch.remove_handler( self.titlebar_mouse_down )
         self.dispatch.remove_handler( self.titlebar_drag )
 
-	self.dispatch.remove_handler( self.title_property_notify )
+        self.dispatch.remove_handler( self.title_property_notify )
         self.dispatch.remove_handler( self.title_remove )
         self.dispatch.remove_handler( self.title_remove )
 
@@ -176,7 +176,7 @@ class TitleClient(object):
         self.decoration_window.dispatch.remove_handler( self.title_get_focus )
         self.decoration_window.dispatch.remove_handler( self.title_lose_focus )
 
-	(x, y, width, height, borderwidth) = self.decoration_window.geometry()
+        (x, y, width, height, borderwidth) = self.decoration_window.geometry()
         self.window.reparent( self.workspace.screen.root, x, y )
 
         self.title_window.unmap()
@@ -190,7 +190,7 @@ class TitleClient(object):
 
     def title_property_notify(self, event):
         log.debug( "TitleClient.modefocusedtitle_property_notify" )
-	if self.current and event.atom == Xatom.WM_NAME:
+        if self.current and event.atom == Xatom.WM_NAME:
             try:
                 self.set_text( self.get_title())
             except:
@@ -208,7 +208,7 @@ class TitleClient(object):
         self.title_window.unmap()
 
     def title_hide( self ):
-	(x, y, width, height, borderwidth) = self.decoration_window.geometry()
+        (x, y, width, height, borderwidth) = self.decoration_window.geometry()
         self.hide_x = x
         self.hide_y = y
         self.decoration_window.move( -(2*self.workspace.screen.root_width), -(2*self.workspace.screen.root_height) )
@@ -240,7 +240,7 @@ class TitleClient(object):
 
 
     def activate_client( self ):
-	self.decoration_window.raisewindow()
+        self.decoration_window.raisewindow()
         self.workspace.raisewindows() # raise the "alwaysontop" windows
         self.wm.current_frame().wm.set_current_client( self )
         
@@ -325,17 +325,17 @@ class TitleClient(object):
                                           width-2, self.screen.title_height )
 
     def set_text(self, text):
-	if text == self.title_text:
-	    return
+        if text == self.title_text:
+            return
 
         self.title_undraw()
-	self.title_text = text
+        self.title_text = text
         self.title_draw()
 
     def title_draw( self ):
-	(x, y, wwidth, height, borderwidth) = self.title_window.geometry()
-	if not self.title_text:
-	    return
+        (x, y, wwidth, height, borderwidth) = self.title_window.geometry()
+        if not self.title_text:
+            return
 
         if self.active:
             fg_gc = self.title_on_fg_gc
@@ -353,13 +353,13 @@ class TitleClient(object):
         width = min( width, wwidth - 4 )
         x = ( wwidth - width ) / 2
 
-	self.title_window.draw_text( fg_gc, x, self.wm.current_frame().screen.title_base, self.title_text )
+        self.title_window.draw_text( fg_gc, x, self.wm.current_frame().screen.title_base, self.title_text )
 
     def title_redraw(self, event):
         self.title_draw()
 
     def title_undraw(self):
-	(x, y, width, height, borderwidth) = self.title_window.geometry()
+        (x, y, width, height, borderwidth) = self.title_window.geometry()
         self.title_window.clear_area( width = width, height = height )
 
 

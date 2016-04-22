@@ -65,7 +65,7 @@ class Frame( object ):
         window.dispatch.add_handler( wmevents.RemoveClient, self.remove_client_event )
         self.windows.insert_after_current( window )
 
-	if self.visible():
+        if self.visible():
             self.activate()
 
         window.frame = self

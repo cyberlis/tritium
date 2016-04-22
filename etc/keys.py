@@ -90,10 +90,10 @@ class TritiumKeys(keys.KeyHandler):
         def Any_p( self, event ):
             self.wm.current_frame().prev()
 
-	def Any_c( self, event ):
+        def Any_c( self, event ):
             self.wm.current_frame().windows.current().delete()
 
-	def Any_k( self, event ):
+        def Any_k( self, event ):
             self.wm.current_frame().windows.current().destroy()
 
         def Any_x( self, event ):
@@ -245,13 +245,13 @@ class TritiumKeys(keys.KeyHandler):
         IdentifyWindow( self.wm.current_frame().windows.current(), event.time )
 
     def F11(self, evt):
-	wmanager.debug('keys', 'dropping keygrabs temporarily')
+        wmanager.debug('keys', 'dropping keygrabs temporarily')
 
-	# First release all our grabs.  They will be reinstalled
-	# when BypassHandler exits
-	
-	self._ungrab()
-	BypassHandler(self)
+        # First release all our grabs.  They will be reinstalled
+        # when BypassHandler exits
+
+        self._ungrab()
+        BypassHandler(self)
 
     def F12( self, event ):
         self.wm.Debian_menu()

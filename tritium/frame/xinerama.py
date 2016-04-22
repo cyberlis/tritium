@@ -75,7 +75,7 @@ class XineramaFrame( Frame ):
                 else:
                     return self.tritium_parent.find_frame_left( self )
             else:
-	    	last = child_frame
+                last = child_frame
 
         return self.tritium_parent.find_frame_left( self )
 
