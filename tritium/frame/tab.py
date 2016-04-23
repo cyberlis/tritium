@@ -195,14 +195,6 @@ class Tab(object):
                 background_pixel = self.frame.screen.title_on_bg,
                 event_mask = X.ExposureMask
                 )
-            self._window = window
-            
-            gc = window.create_gc(
-                foreground = 0,
-                background = 1,
-            )
-            window.draw_text( gc, 0, 0, "xxxx")
-
             self.window = self.frame.screen.add_internal_window(window)
             window.change_attributes( border_pixel = self.frame.screen.title_border_color)
             self.window.configure(border_width = 1)
@@ -381,19 +373,15 @@ class Tab(object):
             fg_gc = self.off_fg_gc
             bg_gc = self.off_bg_gc
             
-        #self.window.fill_rectangle( bg_gc, 0, 0, self.width, self.frame.screen.title_height )
+        self.window.fill_rectangle( bg_gc, 0, 0, self.width, self.frame.screen.title_height )
             
         # Get width
-        """f = fg_gc.query_text_extents(self.text)
+        f = fg_gc.query_text_extents(self.text.encode('utf-8'))
         width = f.overall_width + 4
 
         width = min( width, self.width - 4 )
-        x = ( self.width - width ) / 2"""
-        """gc = self._window.create_gc(
-            foreground = 0,
-            background = 1,
-            )
-        self.window.draw_text( gc, 20, 20, self.text )"""
+        x = ( self.width - width ) / 2
+        self.window.draw_text( fg_gc, x, self.frame.screen.title_base, self.text.encode('utf-8') )
 
     def tab_redraw(self, event):
         """
