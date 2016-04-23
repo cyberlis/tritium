@@ -38,16 +38,16 @@ class TitleScreen(object):
 #                                             '#ffff00')
 
 #         self.title_on_bg = self.get_color_res('.tabls.on.background',
-# 				'.Tabs.On.Background',
-# 				'#ff0000')
+#         '.Tabs.On.Background',
+#         '#ff0000')
 
 #         self.title_off_fg = self.get_color_res('.tabs.off.foreground',
-# 				'.Tabs.Off.Foreground',
-# 				'#ffffff')
+#           '.Tabs.Off.Foreground',
+#           '#ffffff')
 
 #         self.title_off_bg = self.get_color_res('.tabs.off.background',
-# 				'.Tabs.Off.Background',
-# 				'#999999')
+#           '.Tabs.Off.Background',
+#           '#999999')
 
         self.title_on_fg = self.get_color( "#000000" )
         self.title_on_bg = self.get_color( "#999999" )
@@ -347,13 +347,13 @@ class TitleClient(object):
         self.title_window.fill_rectangle( bg_gc, 0, 0, wwidth, self.wm.current_frame().screen.title_height )
         
         # Get width
-        f = fg_gc.query_text_extents(self.title_text)
+        f = fg_gc.query_text_extents(self.title_text.encode('utf-8'))
         width = f.overall_width + 4
 
         width = min( width, wwidth - 4 )
         x = ( wwidth - width ) / 2
 
-        self.title_window.draw_text( fg_gc, x, self.wm.current_frame().screen.title_base, self.title_text )
+        self.title_window.draw_text( fg_gc, x, self.wm.current_frame().screen.title_base, self.title_text.encode('utf-8') )
 
     def title_redraw(self, event):
         self.title_draw()

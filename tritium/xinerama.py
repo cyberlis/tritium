@@ -7,7 +7,7 @@ XineramaScreenInfo = rq.Struct(
     rq.Card16('height') )
 
 class XineramaQueryScreenInfo(rq.ReplyRequest):
-    _request = rq.Struct( rq.Card8( 'opcode' ), 
+    _request = rq.Struct( rq.Card8( 'opcode' ),
                           rq.Opcode( 5 ), 
                           rq.RequestLength() )
 
@@ -15,7 +15,7 @@ class XineramaQueryScreenInfo(rq.ReplyRequest):
                         rq.Pad( 1 ),
                         rq.Card16( 'sequence_number' ),
                         rq.Card32( 'length' ),
-                        rq.LengthOf( 'screen_info', 4 ), 
+                        rq.LengthOf( 'screen_info', 4 ),
                         rq.Pad( 20 ),
                         rq.List( 'screen_info', XineramaScreenInfo ) )
 

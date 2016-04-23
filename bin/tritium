@@ -45,14 +45,14 @@ class TritiumMenuHandler(menu.MenuCharHandler):
     Any_space = Any_Down = C_n = menu.MenuKeyHandler._down
     Any_BackSpace = Any_Up = C_p = menu.MenuKeyHandler._up
 
-class TritiumClient( wmanager.Client,
-                     tritium.frame.FrameClient,
-                     tritium.frame.tab.TabClient,
-		     workspace.WorkspaceClient,
-		     border.BorderClient,
-		     tritium.frame.title.TitleClient,
-                     tritium.dock.DockClient,
-                     ):
+class TritiumClient(wmanager.Client,
+                    tritium.frame.FrameClient,
+                    tritium.frame.tab.TabClient,
+                    workspace.WorkspaceClient,
+                    border.BorderClient,
+                    tritium.frame.title.TitleClient,
+                    tritium.dock.DockClient,
+                    ):
     "Put the clients in a frame, with a border."
     border_default_width = 1
     border_color_name = 'White'
@@ -75,15 +75,15 @@ class LayoutScreen(object):
         if layout.TritiumLayout.__dict__.has_key( method ):
             layout.TritiumLayout.__dict__[method]( self.layout, self )
 
-class TritiumScreen( tritium.dock.DockScreen,
-                     wmanager.Screen,
-		     color.Color,
-		     tritium.frame.title.TitleScreen,
-                     LayoutScreen,
-		     message.screenMessage,
-		     tritium.tritiumScreen,
-		     menu.screenMenu,
-                     ):
+class TritiumScreen(tritium.dock.DockScreen,
+                    wmanager.Screen,
+                    color.Color,
+                    tritium.frame.title.TitleScreen,
+                    LayoutScreen,
+                    message.screenMessage,
+                    tritium.tritiumScreen,
+                    menu.screenMenu,
+                    ):
     "And panes on the screen, and I'm going to want some menus."
 
     menu_handler = TritiumMenuHandler
